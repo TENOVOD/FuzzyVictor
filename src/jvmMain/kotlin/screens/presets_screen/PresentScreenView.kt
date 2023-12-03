@@ -8,7 +8,10 @@ import GLOBAL_COUNT_EV_CRITERIA
 import GLOBAL_COUNT_EXPERT
 import GLOBAL_CRITERIA_FUZZY_NUMBERS
 import GLOBAL_EXPERTS_EVALUATION_LIST
+import GLOBAL_MATRIX_OF_ALTERNATIVES
+import GLOBAL_MATRIX_OF_CRITERIA
 import GLOBAL_MATRIX_OF_CRITERIA_EVALUATION
+import GLOBAL_MATRIX_OF_EXPERTS
 import GLOBAl_ALTERNATIVE_LT
 import GLOBAl_CRITERIA_LT
 import Screen
@@ -255,6 +258,26 @@ fun PresentScreenView(
             }
         }
         Column {
+            BasicButton(
+                "DATASET"
+            ){
+                GLOBAl_CRITERIA_LT = setFor6LinguisticTerm
+                GLOBAl_ALTERNATIVE_LT = setFor6AlternativeTerm
+
+                GLOBAL_COUNT_EV_CRITERIA=6
+                GLOBAL_COUNT_EV_ALTERNATIVE=6
+
+                GLOBAL_COUNT_CRITERIA = 4
+                GLOBAL_COUNT_ALTERNATIVE = 5
+                GLOBAL_COUNT_EXPERT = 3
+
+                GLOBAL_MATRIX_OF_CRITERIA= defaultListFor4Criteria
+                GLOBAL_MATRIX_OF_ALTERNATIVES= setFor5Alternatives
+                GLOBAL_MATRIX_OF_EXPERTS= setFor3Experts
+
+                GLOBAL_AGGREGATE_SCORE=
+            }
+
             //Counters LT
             CountLT(
                 rememberCriteriaEvaluation,

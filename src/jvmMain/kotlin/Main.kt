@@ -50,6 +50,7 @@ var GLOBAL_MATRIX_OF_EXPERTS= setForExpert
 var GLOBAL_CRITERIA_AGGREGATED_WEIGHT= mutableListOf<AggregatedCriteriaWeight>()
 var GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
 var GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT= mutableListOf<AggregateScore>()
+var GLOBAL_FF = mutableListOf<AggregateScore>()
 
 
 //SECOND PAGE (EVALUATION CRITERIA)

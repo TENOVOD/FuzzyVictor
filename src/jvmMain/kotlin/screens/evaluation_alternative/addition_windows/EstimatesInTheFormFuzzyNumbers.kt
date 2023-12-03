@@ -2,6 +2,7 @@ package screens.evaluation_alternative.addition_windows
 
 import GLOBAL_AGGREGATE_SCORE
 import GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS
+import GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT
 import GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE
 import GLOBAL_COUNT_CRITERIA
 import GLOBAL_COUNT_EXPERT
@@ -33,7 +34,7 @@ import kotlin.math.pow
 fun EstimatesInTheFormOfFuzzyNumber(
     navController: NavController
 ) {
-    GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS.clear()
+
     Box(
         modifier = Modifier.fillMaxSize().padding(start = 100.dp)
     ) {
@@ -52,73 +53,33 @@ fun EstimatesInTheFormOfFuzzyNumber(
                 Column(
                     modifier = Modifier.padding(10.dp)
                 ) {
-                    GLOBAL_AGGREGATE_SCORE.forEach {
-                        Row() {
-                            HeaderCell(it.altName)
-                            HeaderCell("l")
-                            HeaderCell("l'")
-                            HeaderCell("m")
-                            HeaderCell("u'")
-                            HeaderCell("u")
+                    println("START NEW PAGE")
+                    Row{
+                        HeaderCell("")
+                        for(i in GLOBAL_MATRIX_OF_CRITERIA){
+                            HeaderCell(i.name)
                         }
-                        for (c in 1..GLOBAL_COUNT_CRITERIA) {
-                            val arr = it.table[c]
-                            val arrOfMinValues = Array<Float>(GLOBAL_COUNT_EXPERT) { 0f }
-                            val arrOfMiddleValues = Array(GLOBAL_COUNT_EXPERT) { 0f }
-                            val arrOfMaxValues = Array(GLOBAL_COUNT_EXPERT) { 0f }
+                    }
+                    GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.forEach {
+                        Row{
+                            LeftSideMainCell(it.altName)
+                            for(i in 1..GLOBAL_COUNT_CRITERIA){
 
-                            for (i in arr?.indices!!) {
-                                val limitsArray = getLimitsByShortName(arr[i])
-
-                                arrOfMinValues[i] = limitsArray.min()
-                                arrOfMaxValues[i] = limitsArray.max()
-                                arrOfMiddleValues[i] = limitsArray[1]
-                            }
-                            var multMinValue = 0f
-                            var multMiddleValue = 0f
-                            var multMaxValue = 0f
-
-                            for (i in arrOfMinValues.indices) {
-                                if (i == 0) {
-                                    multMinValue = arrOfMinValues[i]
-                                    multMiddleValue = arrOfMiddleValues[i]
-                                    multMaxValue = arrOfMaxValues[i]
-                                } else {
-                                    multMinValue *= arrOfMinValues[i]
-                                    multMiddleValue *= arrOfMiddleValues[i]
-                                    multMaxValue *= arrOfMaxValues[i]
+                                var tempValue = ""
+                                it.table[i]!!.forEach { el->
+                                    print("$el,")
+                                    tempValue+="$el, "
                                 }
+                                TableCellWithText(tempValue)
                             }
-                            val lValue = arrOfMinValues.min()
-                            val lshtValue = multMinValue.pow((1 / 3f))
-                            val mValue = multMiddleValue.pow((1 / 3f))
-                            val ushtValue = multMaxValue.pow((1 / 3f))
-                            val uValue = arrOfMaxValues.max()
-                            println("Print alt name: ${it.altName}")
-                            GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS.add(it.altName to  AlternativeAndCriteriaFuzzyNumbers(
-                                GLOBAL_MATRIX_OF_CRITERIA[c-1].name,
-                                lValue,
-                                lshtValue,
-                                mValue,
-                                ushtValue,
-                                uValue
-                            ))
-                            Row {
-                                TableCellWithText(GLOBAL_MATRIX_OF_CRITERIA[c-1].name)
-                                TableCellWithText(lValue.toString())
-                                TableCellWithText(lshtValue.toString())
-                                TableCellWithText(mValue.toString())
-                                TableCellWithText(ushtValue.toString())
-                                TableCellWithText(uValue.toString())
-                            }
-
                         }
-                        Spacer(modifier = Modifier.height(20.dp))
+
+                        println(it)
+
                     }
-                    GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE.clear()
-                    GLOBAL_MATRIX_OF_CRITERIA.forEach {
-                        GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE.add(chooseMinOrMaxCriteria(criteriaName = it.name, type = it.type))
-                    }
+                    println("END NEW PAGE")
+                    Spacer(modifier = Modifier.height(20.dp))
+
 
                 }
             }
