@@ -4,6 +4,7 @@ import GLOBAL_AGGREGATE_SCORE
 import GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS
 import GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT
 import GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE
+import GLOBAL_COUNT_ALTERNATIVE
 import GLOBAL_COUNT_CRITERIA
 import GLOBAL_COUNT_EXPERT
 import GLOBAL_MATRIX_OF_CRITERIA
@@ -53,7 +54,7 @@ fun EstimatesInTheFormOfFuzzyNumber(
                 Column(
                     modifier = Modifier.padding(10.dp)
                 ) {
-                    println("START NEW PAGE")
+                    println("START NEW PAGE GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT")
                     Row{
                         HeaderCell("")
                         for(i in GLOBAL_MATRIX_OF_CRITERIA){
@@ -77,10 +78,18 @@ fun EstimatesInTheFormOfFuzzyNumber(
                         println(it)
 
                     }
-                    println("END NEW PAGE")
+                    GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.forEach { el->
+                        println(el)
+                        for (i in 1..GLOBAL_COUNT_ALTERNATIVE){
+                            println("ALTERNATIVE: $i")
+                            println("Start array")
+                            el.table[i]?.forEach {
+
+                            }
+                        }
+                    }
+                    println("END NEW PAGE GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT")
                     Spacer(modifier = Modifier.height(20.dp))
-
-
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))

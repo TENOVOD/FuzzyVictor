@@ -18,7 +18,6 @@ import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
 import navcontroller.rememberNavController
-import screens.ResultScreen
 import screens.evaluation_alternative.EvaluationAlternativeScreen
 import screens.evaluation_alternative.addition_windows.*
 import screens.evaluation_criteria.EvaluationCriteria
@@ -216,10 +215,6 @@ fun CustomNavigationHost(
             EvaluationCriteria(navController)
         }
 
-        composable(Screen.ResultScreen.name) {
-            ResultScreen(navController)
-        }
-
         composable(Screen.CriteriaSettings.name){
             SettingsOfAlternativesScreen(navController)
         }
@@ -247,15 +242,7 @@ fun CustomNavigationHost(
         composable(Screen.EstimatesInTheFormOfFuzzyNumberScreen.name){
             EstimatesInTheFormOfFuzzyNumber(navController)
         }
-        composable(Screen.OptimalCriteriaValuesScreen.name){
-            OptimalCriteriaValuesScreen(navController)
-        }
-        composable(Screen.NormalizedMatrixScreen.name){
-            NormalizedMatrixScreen(navController)
-        }
-        composable(Screen.NormalizedWeightedMatrixScreen.name){
-            NormalizedWeightedMatrixScreen(navController)
-        }
+
 
     }.build()
 }

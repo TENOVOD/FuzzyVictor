@@ -15,20 +15,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.getAggregateStore
-
-import models.calculateCriteriaFuzzyNumbers
-import models.updateAggAlternativeWeightMatrix
 import navcontroller.NavController
 import screens.elements.*
-import screens.evaluation_alternative.addition_windows.NormalizedWeightedMatrixScreen
 import screens.evaluation_criteria.normalizeAlternativeLT
-import javax.swing.GroupLayout.Alignment
+
 
 @Composable
 fun EvaluationAlternativeScreen(
@@ -88,6 +83,15 @@ fun EvaluationAlternativeScreen(
                             indexExperts++
                             Spacer(modifier = Modifier.height(50.dp))
                         }
+
+                        println("@@@@@@")
+                        GLOBAL_EXPERTS_EVALUATION_LIST.forEach {
+                            println("; ; $it")
+                            it.table.forEach {el->
+
+                            }
+                        }
+                        println("2222222222")
 
                     }
 
