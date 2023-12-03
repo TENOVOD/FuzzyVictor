@@ -1,10 +1,7 @@
 package screens.elements
 
-import GLOBAL_AGGREGATE_SCORE
 import GLOBAL_EXPERTS_EVALUATION_LIST
-import GLOBAL_MATRIX_OF_CRITERIA_EVALUATION
 import GLOBAL_MATRIX_OF_EXPERTS
-import SELECTED_EXPERT_INDEX
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,14 +12,10 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.getAggregateStore
@@ -30,7 +23,6 @@ import data.getAggregateStore
 import models.*
 import screens.evaluation_criteria.updateMapEvaluation
 import screens.presets_screen.settings_of_alternatives.changeGlobalCriteriaMatrix
-import javax.swing.GroupLayout.Alignment
 
 
 @Composable
@@ -119,8 +111,8 @@ fun RowScope.DropdownDemo(
     criteria: Criteria
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val criteriaValue = if (criteria.type == TypeMinMax.MAX) 0 else 1
-    val items = listOf(TypeMinMax.MAX.toString(), TypeMinMax.MIN.toString())
+    val criteriaValue = if (criteria.type == BenefitsOrNot.NO) 0 else 1
+    val items = listOf(BenefitsOrNot.NO.toString(), BenefitsOrNot.YES.toString())
     var selectedIndex by remember { mutableStateOf(criteriaValue) }
     Column {
         Text(
@@ -142,9 +134,9 @@ fun RowScope.DropdownDemo(
                     selectedIndex = index
                     expanded = false
                     if (selectedIndex == 1) {
-                        changeGlobalCriteriaMatrix(criteria, TypeMinMax.MIN)
+                        changeGlobalCriteriaMatrix(criteria, BenefitsOrNot.YES)
                     } else {
-                        changeGlobalCriteriaMatrix(criteria, TypeMinMax.MAX)
+                        changeGlobalCriteriaMatrix(criteria, BenefitsOrNot.NO)
                     }
                 }) {
                     Text(text = s)

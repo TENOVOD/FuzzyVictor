@@ -49,7 +49,7 @@ var GLOBAL_MATRIX_OF_EXPERTS= setForExpert
 var GLOBAL_CRITERIA_AGGREGATED_WEIGHT= mutableListOf<AggregatedCriteriaWeight>()
 var GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
 var GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT= mutableListOf<AggregateScore>()
-var GLOBAL_FF = mutableListOf<AggregateScore>()
+var GLOBAL_FF = mutableListOf<MatrixOfMinOrMaxValue>()
 
 
 //SECOND PAGE (EVALUATION CRITERIA)
@@ -186,8 +186,8 @@ enum class Screen(
         label = "Criteria settings",
         icon = Icons.Filled.Done
     ),
-    OptimalCriteriaValuesScreen(
-        label = "Criteria settings",
+    BenefitsOrMaximizationScreen(
+        label = "BenefitsOrMaximization",
         icon = Icons.Filled.Done
     ),
     NormalizedMatrixScreen(
@@ -241,6 +241,9 @@ fun CustomNavigationHost(
         }
         composable(Screen.EstimatesInTheFormOfFuzzyNumberScreen.name){
             EstimatesInTheFormOfFuzzyNumber(navController)
+        }
+        composable(Screen.BenefitsOrMaximizationScreen.name){
+            BenefitsOrMaximization(navController)
         }
 
 

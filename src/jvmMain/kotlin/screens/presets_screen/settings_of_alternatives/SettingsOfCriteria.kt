@@ -17,13 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.*
 import models.Criteria
-import models.TypeMinMax
+import models.BenefitsOrNot
 import models.addNewCriteriaOrExpert
 import navcontroller.NavController
 import screens.elements.DropdownDemo
 import screens.elements.HeaderCell
 import screens.elements.TableCell
-import screens.presets_screen.linguistic_terms_for_evaluating_the_importance_of_criteria.setMatrixOfCriteriaValue
 
 
 @Composable
@@ -120,7 +119,7 @@ fun updateTableByCriteria(
 
 fun changeGlobalCriteriaMatrix(
     el:Criteria,
-    type:TypeMinMax
+    type:BenefitsOrNot
 ){
     for(i in GLOBAL_MATRIX_OF_CRITERIA.indices){
         if(GLOBAL_MATRIX_OF_CRITERIA[i].name==el.name){

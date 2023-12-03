@@ -3,80 +3,80 @@ package data
 import models.Alternative
 import models.Criteria
 
-import models.TypeMinMax
+import models.BenefitsOrNot
 
 val defaultListFor2Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
 )
 val defaultListFor3Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
 )
 val defaultListFor4Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
 )
 val defaultListFor5Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
 )
 val defaultListFor6Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
-    Criteria(6,"Cri6",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
+    Criteria(6,"Cri6",BenefitsOrNot.NO),
 )
 val defaultListFor7Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
-    Criteria(6,"Cri6",TypeMinMax.MAX),
-    Criteria(7,"Cri7",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
+    Criteria(6,"Cri6",BenefitsOrNot.NO),
+    Criteria(7,"Cri7",BenefitsOrNot.NO),
 )
 val defaultListFor8Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
-    Criteria(6,"Cri6",TypeMinMax.MAX),
-    Criteria(7,"Cri7",TypeMinMax.MAX),
-    Criteria(8,"Cri8",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
+    Criteria(6,"Cri6",BenefitsOrNot.NO),
+    Criteria(7,"Cri7",BenefitsOrNot.NO),
+    Criteria(8,"Cri8",BenefitsOrNot.NO),
 )
 val defaultListFor9Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
-    Criteria(6,"Cri6",TypeMinMax.MAX),
-    Criteria(7,"Cri7",TypeMinMax.MAX),
-    Criteria(8,"Cri8",TypeMinMax.MAX),
-    Criteria(9,"Cri9",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
+    Criteria(6,"Cri6",BenefitsOrNot.NO),
+    Criteria(7,"Cri7",BenefitsOrNot.NO),
+    Criteria(8,"Cri8",BenefitsOrNot.NO),
+    Criteria(9,"Cri9",BenefitsOrNot.NO),
 )
 
 val defaultListFor10Criteria= mutableListOf(
-    Criteria(1,"Cri1",TypeMinMax.MAX),
-    Criteria(2,"Cri2",TypeMinMax.MAX),
-    Criteria(3,"Cri3",TypeMinMax.MAX),
-    Criteria(4,"Cri4",TypeMinMax.MAX),
-    Criteria(5,"Cri5",TypeMinMax.MAX),
-    Criteria(6,"Cri6",TypeMinMax.MAX),
-    Criteria(7,"Cri7",TypeMinMax.MAX),
-    Criteria(8,"Cri8",TypeMinMax.MAX),
-    Criteria(9,"Cri9",TypeMinMax.MAX),
-    Criteria(10,"Cri10",TypeMinMax.MAX),
+    Criteria(1,"Cri1",BenefitsOrNot.NO),
+    Criteria(2,"Cri2",BenefitsOrNot.NO),
+    Criteria(3,"Cri3",BenefitsOrNot.NO),
+    Criteria(4,"Cri4",BenefitsOrNot.NO),
+    Criteria(5,"Cri5",BenefitsOrNot.NO),
+    Criteria(6,"Cri6",BenefitsOrNot.NO),
+    Criteria(7,"Cri7",BenefitsOrNot.NO),
+    Criteria(8,"Cri8",BenefitsOrNot.NO),
+    Criteria(9,"Cri9",BenefitsOrNot.NO),
+    Criteria(10,"Cri10",BenefitsOrNot.NO),
 )
 
 val setFor2Alternatives= mutableListOf(

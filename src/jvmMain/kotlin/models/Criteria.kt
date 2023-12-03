@@ -5,7 +5,7 @@ import GLOBAL_MATRIX_OF_CRITERIA
 data class Criteria(
     val id:Int,
     var name:String,
-    var type:TypeMinMax
+    var type:BenefitsOrNot
 )
 
 fun getCriteriaById(

@@ -136,8 +136,8 @@ fun EvaluationAlternativeScreen(
                             navController.navigate(Screen.EstimatesInTheFormOfFuzzyNumberScreen.name)
                         }
                         Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Optimal criteria values") {
-                            navController.navigate(Screen.OptimalCriteriaValuesScreen.name)
+                        BasicButton("BenefitsOrMaximization") {
+                            navController.navigate(Screen.BenefitsOrMaximizationScreen.name)
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                         BasicButton("Normalized matrix") {

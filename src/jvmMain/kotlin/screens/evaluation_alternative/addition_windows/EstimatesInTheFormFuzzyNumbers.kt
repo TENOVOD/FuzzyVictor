@@ -1,17 +1,11 @@
 package screens.evaluation_alternative.addition_windows
 
-import GLOBAL_AGGREGATE_SCORE
 import GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS
 import GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT
-import GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE
 import GLOBAL_COUNT_ALTERNATIVE
 import GLOBAL_COUNT_CRITERIA
-import GLOBAL_COUNT_EXPERT
 import GLOBAL_MATRIX_OF_CRITERIA
 import GLOBAL_NORMALIZE_OF_ALTERNATIVE_LT
-import GLOBAL_NORMALIZE_OF_CRITERIA_LT
-import GLOBAl_ALTERNATIVE_LT
-import GLOBAl_CRITERIA_LT
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,17 +13,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import models.AlternativeAndCriteriaFuzzyNumbers
 import models.LinguisticTermCell
-import models.TypeMinMax
-import models.calculateCriteriaFuzzyNumbers
+import models.BenefitsOrNot
 import navcontroller.NavController
 import screens.elements.*
-import kotlin.math.pow
 
 @Composable
 fun EstimatesInTheFormOfFuzzyNumber(
@@ -119,7 +110,7 @@ fun getLimitsByShortName(shortName: String): Array<Float> {
 
 fun chooseMinOrMaxCriteria(
     criteriaName:String,
-    type: TypeMinMax
+    type: BenefitsOrNot
 ): AlternativeAndCriteriaFuzzyNumbers {
     val tempList = mutableListOf<AlternativeAndCriteriaFuzzyNumbers>()
     GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS.forEach {
@@ -133,7 +124,7 @@ fun chooseMinOrMaxCriteria(
     var ushtValue = tempList[0].ushtValue
     var uValue = tempList[0].uValue
     tempList.forEach {
-        if(type==TypeMinMax.MIN){
+        if(type==BenefitsOrNot.YES){
             if(it.lValue<=lValue){
                 lValue=it.lValue
             }
@@ -150,7 +141,7 @@ fun chooseMinOrMaxCriteria(
                 uValue=it.uValue
             }
         }
-        if(type==TypeMinMax.MAX){
+        if(type==BenefitsOrNot.NO){
             if(it.lValue>=lValue){
                 lValue=it.lValue
             }

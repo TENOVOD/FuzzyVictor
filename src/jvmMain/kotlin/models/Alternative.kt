@@ -7,13 +7,13 @@ data class Alternative(
 
 }
 
-enum class TypeMinMax(
+enum class BenefitsOrNot(
     name:String
 ){
-    MIN(
-        name = "MIN"
+    YES(
+        name = "YES"
     ),
-    MAX(
-        name="MAX"
+    NO(
+        name="NO"
     )
 }
