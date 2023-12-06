@@ -303,7 +303,12 @@ fun PresentScreenView(
                 GLOBAL_COUNT_ALTERNATIVE = 5
                 GLOBAL_COUNT_EXPERT = 3
 
-                GLOBAL_MATRIX_OF_CRITERIA = defaultListFor4Criteria
+                GLOBAL_MATRIX_OF_CRITERIA = mutableListOf(
+                    Criteria(1,"Cri1",BenefitsOrNot.NO),
+                    Criteria(2,"Cri2",BenefitsOrNot.YES),
+                    Criteria(3,"Cri3",BenefitsOrNot.YES),
+                    Criteria(4,"Cri4",BenefitsOrNot.NO),
+                )
                 GLOBAL_MATRIX_OF_ALTERNATIVES = setFor5Alternatives
                 GLOBAL_MATRIX_OF_EXPERTS = setFor3Experts
                 GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
@@ -456,6 +461,12 @@ fun PresentScreenView(
                 normalizeAlternativeLT()
                 getAggregateStore()
                 updateAggAlternativeWeightMatrix()
+                calculatePerfectValue()
+                normalizeFuzzyDifference()
+                calculateS()
+                calculateR()
+                calculateQ()
+                calculateDefuzzification()
             }
 
             //Counters LT

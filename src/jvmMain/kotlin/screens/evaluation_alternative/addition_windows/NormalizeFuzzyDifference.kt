@@ -1,6 +1,8 @@
 package screens.evaluation_alternative.addition_windows
 
-import GLOBAL_FF
+import GLOBAL_COUNT_CRITERIA
+import GLOBAL_MATRIX_OF_CRITERIA
+import GLOBAL_NORMALIZE_FUZZY_DIFFERENCE
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.calculatePerfectValue
+import data.normalizeFuzzyDifference
 import navcontroller.NavController
 import screens.elements.BasicButton
 import screens.elements.HeaderCell
@@ -19,9 +22,9 @@ import screens.elements.LeftSideMainCell
 import screens.elements.TableCellWithText
 
 @Composable
-fun BenefitsOrMaximization(
+fun NormalizeFuzzyDifferenceScreen(
     navController: NavController
-) {
+){
     Box(
         modifier = Modifier.fillMaxSize().padding(start = 100.dp)
     ) {
@@ -40,33 +43,25 @@ fun BenefitsOrMaximization(
                 Column(
                     modifier = Modifier.padding(10.dp)
                 ) {
+
                     Row {
                         HeaderCell("Name")
-                        HeaderCell("Best")
-                        HeaderCell("Min")
-                        HeaderCell("Max")
+                        for (i in 1..GLOBAL_COUNT_CRITERIA){
+                            HeaderCell(GLOBAL_MATRIX_OF_CRITERIA[i-1].name)
+                        }
                     }
-                    GLOBAL_FF.forEach {
+                    GLOBAL_NORMALIZE_FUZZY_DIFFERENCE.forEach {
                         Row {
-                            LeftSideMainCell(it.criteriaName)
-                            var bestStr = "("
-                            var minStr = ""
-                            var maxStr = ""
-                            it.optimizationValues.forEach {el->
-                                bestStr+="$el, "
+                            LeftSideMainCell(it.altName)
+                            for (i in 1..GLOBAL_COUNT_CRITERIA){
+                                val tempArray = it.table[i]
+                                var tempStr ="("
+                                tempArray?.forEach {el->
+                                    tempStr+="$el,"
+                                }
+                                tempStr+=")"
+                                TableCellWithText(tempStr)
                             }
-                            bestStr+=")"
-                            it.minValue.forEach {el->
-                                minStr+="$el, "
-                            }
-                            minStr+=")"
-                            it.maxValue.forEach {el->
-                                maxStr+="$el, "
-                            }
-                            maxStr+=")"
-                            TableCellWithText(bestStr)
-                            TableCellWithText(minStr)
-                            TableCellWithText(maxStr)
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
@@ -81,5 +76,4 @@ fun BenefitsOrMaximization(
         }
 
     }
-
 }

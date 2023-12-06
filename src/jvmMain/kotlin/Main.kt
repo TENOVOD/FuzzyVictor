@@ -49,28 +49,41 @@ var GLOBAL_MATRIX_OF_EXPERTS= setForExpert
 var GLOBAL_CRITERIA_AGGREGATED_WEIGHT= mutableListOf<AggregatedCriteriaWeight>()
 var GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
 var GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT= mutableListOf<AggregateScore>()
+
 var GLOBAL_FF = mutableListOf<MatrixOfMinOrMaxValue>()
 
+var GLOBAL_NORMALIZE_FUZZY_DIFFERENCE = mutableListOf<AggregateScore>()
+
+var GLOBAL_MATRIX_OF_S = AggregateScore("", mutableMapOf<Int,Array<String>>())
+var GLOBAL_MATRIX_OF_R = AggregateScore("", mutableMapOf<Int,Array<String>>())
+var GLOBAL_MATRIX_OF_Q = AggregateScore("", mutableMapOf<Int,Array<String>>())
+var GLOBAL_V = 0.5f
+
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_S = mutableListOf<Pair<String,Float>>()
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_R  = mutableListOf<Pair<String,Float>>()
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_Q  = mutableListOf<Pair<String,Float>>()
+
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_S_RANKING = listOf<Pair<String,Float>>()
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_R_RANKING  = listOf<Pair<String,Float>>()
+var GLOBAL_DEFUZZIFICATION_MATRIX_OF_Q_RANKING  = listOf<Pair<String,Float>>()
 
 //SECOND PAGE (EVALUATION CRITERIA)
 var GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = addNewCriteriaOrExpert(GLOBAL_COUNT_CRITERIA,GLOBAL_COUNT_EXPERT)
 var GLOBAL_NORMALIZE_OF_CRITERIA_LT = mutableListOf<LinguisticTermCell>()
 var GLOBAL_CRITERIA_FUZZY_NUMBERS = getEmptyCriteriaFuzzyNumbers()
 
+
+
 //THIRD SCREEN (EVALUATION ALTERNATIVE)
 var GLOBAL_EXPERTS_EVALUATION_LIST = setEmptyListExpertsEvaluation()
-var SELECTED_EXPERT_INDEX=0
+
 
 
 var GLOBAL_NORMALIZE_OF_ALTERNATIVE_LT = mutableListOf<LinguisticTermCell>()
 var GLOBAL_ALL_ALTERNATIVE_FUZZY_NUMBERS = mutableListOf<Pair<String,AlternativeAndCriteriaFuzzyNumbers>>()
-var GLOBAL_ALTERNATIVE_FUZZY_NUMBERS_BY_CRITERIA_TYPE = mutableListOf< AlternativeAndCriteriaFuzzyNumbers>()
 
-var GLOBAL_NORMALIZED_ALTERNATIVE_MATRIX = mutableListOf<Pair<String,AlternativeAndCriteriaFuzzyNumbers>>()
-var GLOBAL_NORMALIZED_WEIGHTED_MATRIX = mutableListOf<Pair<String,AlternativeAndCriteriaFuzzyNumbers>>()
 
-var GLOBAL_RESULT = mutableListOf<Pair<String,AlternativeAndCriteriaFuzzyNumbers>>()
-var GLOBAL_S_VAlUES = mutableListOf<Pair<String,Array<Float>>>()
+
 @Composable
 @Preview
 fun App() {
@@ -190,11 +203,11 @@ enum class Screen(
         label = "BenefitsOrMaximization",
         icon = Icons.Filled.Done
     ),
-    NormalizedMatrixScreen(
+    NormalizeFuzzyDifferenceScreen(
         label = "Criteria settings",
         icon = Icons.Filled.Done
     ),
-    NormalizedWeightedMatrixScreen(
+    SRQScreen(
         label = "Criteria settings",
         icon = Icons.Filled.Done
     )
@@ -245,7 +258,12 @@ fun CustomNavigationHost(
         composable(Screen.BenefitsOrMaximizationScreen.name){
             BenefitsOrMaximization(navController)
         }
-
+        composable(Screen.NormalizeFuzzyDifferenceScreen.name){
+            NormalizeFuzzyDifferenceScreen(navController)
+        }
+        composable(Screen.SRQScreen.name){
+            SRQScreen(navController)
+        }
 
     }.build()
 }

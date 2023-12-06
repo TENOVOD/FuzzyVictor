@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import data.getAggregateStore
+import data.*
 
 import models.*
 import screens.evaluation_criteria.updateMapEvaluation
@@ -286,6 +286,12 @@ fun RowScope.DropdownAlternativeEvaluation(
                     GLOBAL_EXPERTS_EVALUATION_LIST[indexOfExpertEvaluationList-1].table[aIndex][cKey] = items[selectedIndex]
                     getAggregateStore()
                     updateAggAlternativeWeightMatrix()
+                    calculatePerfectValue()
+                    normalizeFuzzyDifference()
+                    calculateS()
+                    calculateR()
+                    calculateQ()
+                    calculateDefuzzification()
                 }) {
                     Text(text = s)
                 }

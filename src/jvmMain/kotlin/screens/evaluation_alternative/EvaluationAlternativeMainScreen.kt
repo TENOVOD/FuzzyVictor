@@ -7,7 +7,7 @@ import GLOBAL_MATRIX_OF_ALTERNATIVES
 import GLOBAL_MATRIX_OF_CRITERIA
 import GLOBAL_MATRIX_OF_EXPERTS
 import GLOBAl_ALTERNATIVE_LT
-import SELECTED_EXPERT_INDEX
+
 import Screen
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -141,12 +141,12 @@ fun EvaluationAlternativeScreen(
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                         BasicButton("Normalized matrix") {
-                            navController.navigate(Screen.NormalizedMatrixScreen.name)
+                            navController.navigate(Screen.NormalizeFuzzyDifferenceScreen.name)
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                         BasicButton("Normalized weighted matrix") {
 
-                            navController.navigate(Screen.NormalizedWeightedMatrixScreen.name)
+                            navController.navigate(Screen.SRQScreen.name)
                         }
                     }
 

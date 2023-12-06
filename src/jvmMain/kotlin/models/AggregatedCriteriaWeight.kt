@@ -58,20 +58,7 @@ fun updateAggregatedCriteriaWeightMatrix() {
 fun updateAggAlternativeWeightMatrix() {
     GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.clear()
 
-    println("START ALTERNATIVE EVAL")
-    GLOBAL_AGGREGATE_SCORE.forEach {
-        println("Alternative ${it.altName}")
-        for(i in 1..GLOBAL_COUNT_CRITERIA){
-            println("CRITERIA #$i")
-            it.table[i]!!.forEach {el->
-                print("$el,")
-            }
-            println()
-        }
-        println(it)
 
-    }
-    println("END ALTERNATIVE EVAL")
 
     GLOBAL_AGGREGATE_SCORE.forEach { entry ->
 
@@ -109,86 +96,19 @@ fun updateAggAlternativeWeightMatrix() {
     GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.forEach {
         println(it)
     }
-//    GLOBAL_FF.clear()
-//    GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.forEach {
-//        println(it)
-//        var array = Array<Float>(GLOBAL_COUNT_CRITERIA) { 0f }
-//        for (j in 1..GLOBAL_COUNT_CRITERIA) {
-//            //println("FOR CRITERIA #$j")
-//            var sum = 0f
-//            it.table[j]?.forEach { ent ->
-//                sum += ent.toFloat()
-//            }
-//            array[j - 1] = sum
-//            //println()
-//        }
-//        val minElement = array.min()
-//        val maxElement = array.max()
-//        var indexOfMinElement = 0
-//        var indexOfMaxElement = 0
-//        for (i in array.indices) {
-//            if (array[i] == minElement) {
-//                indexOfMinElement = i
-//            }
-//            if (array[i] == maxElement) {
-//                indexOfMaxElement = i
-//            }
-//        }
-//        val arrayOfMin = Array(3) { "" }
-//        val arrayOfMax = Array(3) { "" }
-//        for (j in 1..GLOBAL_COUNT_CRITERIA) {
-//            var counter = 0
-//            if (indexOfMinElement == (j - 1)&& indexOfMaxElement!=indexOfMinElement) {
-//                it.table[j]?.forEach { ent ->
-//                    println("counter: $counter")
-//                    if(counter<3){
-//                        arrayOfMin[counter] = ent
-//                    }
-//                    println("i pll")
-//                    counter++
-//                }
-//            }
-//            if (indexOfMaxElement == (j - 1)&& indexOfMaxElement!=indexOfMinElement) {
-//                it.table[j]?.forEach { ent ->
-//                    if(counter<3){
-//                        arrayOfMax[counter] = ent
-//                    }
-//                    counter++
-//                }
-//            }
-//            if (indexOfMaxElement==indexOfMinElement){
-//                it.table[j]?.forEach { ent ->
-//                    if(counter<3){
-//                        arrayOfMax[counter] = ent
-//                        arrayOfMin[counter] = ent
-//                    }
-//                    counter++
-//                }
-//            }
-//
-//        }
-//        val map = mutableMapOf<Int, Array<String>>()
-//        map[1] = arrayOfMin
-//        map[2] = arrayOfMax
-//        GLOBAL_FF.add(
-//            AggregateScore(
-//                it.altName,
-//                map
-//            )
-//        )
-//
-//
-//    }
-//    println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-//    GLOBAL_FF.forEach {
-//        println(it)
-//        for(i in 1..GLOBAL_COUNT_CRITERIA){
-//             it.table[i]!!.forEach {
-//                 print("$it,")
-//             }
-//            println()
-//
-//        }
-//    }
+    println("START ALTERNATIVE EVAL")
+    GLOBAL_ALTERNATIVE_AGGREGATED_WEIGHT.forEach {
+        println("Alternative ${it.altName}")
+        for(i in 1..GLOBAL_COUNT_CRITERIA){
+            println("CRITERIA #$i")
+            it.table[i]!!.forEach {el->
+                print("$el,")
+            }
+            println()
+        }
+        println(it)
+
+    }
+    println("END ALTERNATIVE EVAL")
     println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 }
