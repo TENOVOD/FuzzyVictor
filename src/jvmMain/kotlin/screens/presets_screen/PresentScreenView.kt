@@ -12,6 +12,7 @@ import GLOBAL_MATRIX_OF_ALTERNATIVES
 import GLOBAL_MATRIX_OF_CRITERIA
 import GLOBAL_MATRIX_OF_CRITERIA_EVALUATION
 import GLOBAL_MATRIX_OF_EXPERTS
+import GLOBAL_V
 import GLOBAl_ALTERNATIVE_LT
 import GLOBAl_CRITERIA_LT
 import Screen
@@ -20,7 +21,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import data.*
 import models.*
 import navcontroller.NavController
@@ -33,6 +36,7 @@ import screens.presets_screen.criteria_count.CriteriaCountView
 import screens.presets_screen.expert_count.updateTableByExpertsCount
 
 import screens.presets_screen.experts_count.ExpertsCountView
+import screens.presets_screen.experts_count.VCountView
 import screens.presets_screen.linguistic_terms_for_evaluating_the_importance_of_criteria.updateDataAlternativeMatrix
 import screens.presets_screen.linguistic_terms_for_evaluating_the_importance_of_criteria.updateDataMatrix
 
@@ -49,425 +53,252 @@ fun PresentScreenView(
     val criteriaDataPoints = remember { mutableStateListOf(listOf(0f, 0f, 0f)) }
     val alternativeDataPoints = remember { mutableStateListOf(listOf(0f, 0f, 0f)) }
 
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 100.dp)
-    ) {
-        Column(modifier = Modifier.width(700.dp)) {
-
-            Column(
-                modifier = Modifier
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Linguistic terms for evaluating the importance of criteria")
-                Spacer(modifier = Modifier.height(10.dp))
-                Row {
-                    HeaderCell("Full name")
-                    HeaderCell("Short name")
-                    HeaderCell("")
-                    HeaderCell("")
-                    HeaderCell("")
-                }
-                when (rememberCriteriaEvaluation) {
-                    3 -> {
-                        updateDataMatrix(GLOBAl_CRITERIA_LT)
-                    }
-
-                    4 -> {
-                        updateDataMatrix(GLOBAl_CRITERIA_LT)
-                    }
-
-                    5 -> {
-                        updateDataMatrix(GLOBAl_CRITERIA_LT)
-                    }
-
-                    6 -> {
-                        updateDataMatrix(GLOBAl_CRITERIA_LT)
-                    }
-
-                    7 -> {
-                        updateDataMatrix(GLOBAl_CRITERIA_LT)
-                    }
-                }
-
-                var preparationForDataPoint by remember { mutableStateOf(GLOBAl_CRITERIA_LT) }
-
-                criteriaDataPoints.clear()
-                var maxX by remember { mutableStateOf(0) }
-                var xLabels = remember { listOf("0") }
-                val yLabels = remember { listOf("1 ", " ", " ", " ", " ", "0 ") }
-
-                preparationForDataPoint.forEach {
-                    if (maxX < it.thirdLimit.toFloat()) {
-                        maxX = it.thirdLimit.toInt()
-                    }
-                    criteriaDataPoints.add(
-                        listOf(
-                            it.firstLimit.toFloat(),
-                            it.secondLimit.toFloat(),
-                            it.thirdLimit.toFloat()
-                        )
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(
+            modifier = Modifier
+                .padding(start = 20.dp)
+        ) {
+            Column(modifier = Modifier.width(950.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        "Лінгвістичні терми для оцінки важливості критеріїв",
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                xLabels = newXLabels(maxX)
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Row {
+                        HeaderCell("Повна назва")
+                        HeaderCell("Коротка назва")
+                        HeaderCell("Перша точка")
+                        HeaderCell("Друга точка")
+                        HeaderCell("Третя точка")
+                    }
+                    when (rememberCriteriaEvaluation) {
+                        3 -> {
+                            updateDataMatrix(GLOBAl_CRITERIA_LT)
+                        }
 
-                //Charts
-                Row {
-                    Column(
-                        modifier = Modifier
-                            .width(400.dp)
-                            .padding(19.dp)
-                    ) {
-                        LineChartWithLabels(
-                            dataPoints = criteriaDataPoints,
-                            xLabels = xLabels,
-                            yLabels = yLabels,
-                            maxX = maxX.toFloat(),
-                            modifier = Modifier
-                        )
-                        BasicButton(
-                            "Update"
-                        ) {
-                            preparationForDataPoint = GLOBAl_CRITERIA_LT
-                            criteriaDataPoints.clear()
-                            maxX = 0
-                            preparationForDataPoint.forEach {
-                                if (maxX < it.thirdLimit.toFloat()) {
-                                    maxX = it.thirdLimit.toInt()
-                                }
-                                criteriaDataPoints.add(
-                                    listOf(
-                                        it.firstLimit.toFloat(),
-                                        it.secondLimit.toFloat(),
-                                        it.thirdLimit.toFloat()
-                                    )
-                                )
-                            }
-                            xLabels = newXLabels(maxX)
+                        4 -> {
+                            updateDataMatrix(GLOBAl_CRITERIA_LT)
+                        }
+
+                        5 -> {
+                            updateDataMatrix(GLOBAl_CRITERIA_LT)
+                        }
+
+                        6 -> {
+                            updateDataMatrix(GLOBAl_CRITERIA_LT)
+                        }
+
+                        7 -> {
+                            updateDataMatrix(GLOBAl_CRITERIA_LT)
                         }
                     }
-                    Column(
-                        modifier = Modifier
-                            .width(400.dp)
-                            .padding(19.dp)
-                    ) {
-                        LineChartWithLabels(
-                            dataPoints = criteriaDataPoints,
-                            xLabels = listOf("0", "0.2", "0.4", "0.6", "0.8", "1"),
-                            yLabels = yLabels,
-                            maxX = maxX.toFloat(),
+
+                    var preparationForDataPoint by remember { mutableStateOf(GLOBAl_CRITERIA_LT) }
+
+                    criteriaDataPoints.clear()
+                    var maxX by remember { mutableStateOf(0) }
+                    var xLabels = remember { listOf("0") }
+                    val yLabels = remember { listOf("1 ", "0.2 ", "0.4 ", "0.6 ", "0.8 ", "0 ") }
+
+                    preparationForDataPoint.forEach {
+                        if (maxX < it.thirdLimit.toFloat()) {
+                            maxX = it.thirdLimit.toInt()
+                        }
+                        criteriaDataPoints.add(
+                            listOf(
+                                it.firstLimit.toFloat(),
+                                it.secondLimit.toFloat(),
+                                it.thirdLimit.toFloat()
+                            )
+                        )
+                    }
+                    xLabels = newXLabels(maxX)
+
+                    //Charts
+                    Row {
+                        Column(
                             modifier = Modifier
-                        )
-                    }
-                }
-
-                /*
-                for (row in rememberCriteriaDataMatrix) {
-                    setMatrixOfLTForEvaluatingTheImportanceOfCriteria(
-                        ltCell=row,
-                        changeFullName = {row.fullName=it},
-                        changeShortName = {row.onNewShortName},
-                        changeFirstLimit = {row.onNewFirstLimit},
-                        changeSecondLimit = {row.onNewSecondLimit},
-                        changeThirdLimit = {row.onNewThirdLimit}
-                    )
-                }*/
-
-            }
-        }
-        Column(modifier = Modifier.width(700.dp)) {
-
-            Column(
-                modifier = Modifier
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Linguistic terms for evaluating the importance of criteria")
-                Spacer(modifier = Modifier.height(10.dp))
-                Row {
-                    HeaderCell("Full name")
-                    HeaderCell("Short name")
-                    HeaderCell("")
-                    HeaderCell("")
-                    HeaderCell("")
-                }
-
-                when (rememberAlternativeEvaluation) {
-                    3 -> {
-                        updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
-                    }
-
-                    4 -> {
-                        updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
-                    }
-
-                    5 -> {
-                        updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
-                    }
-
-                    6 -> {
-                        updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
-                    }
-
-                    7 -> {
-                        updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
-                    }
-                }
-
-                var preparationForDataPoint by remember { mutableStateOf(GLOBAl_ALTERNATIVE_LT) }
-                alternativeDataPoints.clear()
-                var maxX by remember { mutableStateOf(0) }
-                var xLabels = remember { listOf("0") }
-                val yLabels = remember { listOf("1 ", " ", " ", " ", " ", "0 ") }
-
-
-
-                preparationForDataPoint.forEach {
-                    if (maxX < it.thirdLimit.toFloat()) {
-                        maxX = it.thirdLimit.toInt()
-                    }
-                    alternativeDataPoints.add(
-                        listOf(
-                            it.firstLimit.toFloat(),
-                            it.secondLimit.toFloat(),
-                            it.thirdLimit.toFloat()
-                        )
-                    )
-                }
-                xLabels = newXLabels(maxX)
-
-                //Charts
-                Row {
-                    Column(
-                        modifier = Modifier
-                            .width(400.dp)
-                            .padding(19.dp)
-                    ) {
-                        LineChartWithLabels(
-                            dataPoints = alternativeDataPoints,
-                            xLabels = xLabels,
-                            yLabels = yLabels,
-                            maxX = maxX.toFloat(),
-                            modifier = Modifier
-                        )
-                        BasicButton(
-                            "Update"
+                                .width(400.dp)
+                                .padding(19.dp)
                         ) {
-                            preparationForDataPoint = GLOBAl_ALTERNATIVE_LT
-                            alternativeDataPoints.clear()
-                            maxX = 0
-                            preparationForDataPoint.forEach {
-                                if (maxX < it.thirdLimit.toFloat()) {
-                                    maxX = it.thirdLimit.toInt()
-                                }
-                                alternativeDataPoints.add(
-                                    listOf(
-                                        it.firstLimit.toFloat(),
-                                        it.secondLimit.toFloat(),
-                                        it.thirdLimit.toFloat()
+                            LineChartWithLabels(
+                                dataPoints = criteriaDataPoints,
+                                xLabels = xLabels,
+                                yLabels = yLabels,
+                                maxX = maxX.toFloat(),
+                                modifier = Modifier
+                            )
+                            BasicButton(
+                                "Оновити графіки"
+                            ) {
+                                preparationForDataPoint = GLOBAl_CRITERIA_LT
+                                criteriaDataPoints.clear()
+                                maxX = 0
+                                preparationForDataPoint.forEach {
+                                    if (maxX < it.thirdLimit.toFloat()) {
+                                        maxX = it.thirdLimit.toInt()
+                                    }
+                                    criteriaDataPoints.add(
+                                        listOf(
+                                            it.firstLimit.toFloat(),
+                                            it.secondLimit.toFloat(),
+                                            it.thirdLimit.toFloat()
+                                        )
                                     )
-                                )
+                                }
+                                xLabels = newXLabels(maxX)
                             }
-                            xLabels = newXLabels(maxX)
+                        }
+                        Column(
+                            modifier = Modifier
+                                .width(400.dp)
+                                .padding(19.dp)
+                        ) {
+                            LineChartWithLabels(
+                                dataPoints = criteriaDataPoints,
+                                xLabels = listOf("0", "0.2", "0.4", "0.6", "0.8", "1"),
+                                yLabels = yLabels,
+                                maxX = maxX.toFloat(),
+                                modifier = Modifier
+                            )
                         }
                     }
-                    Column(
-                        modifier = Modifier
-                            .width(400.dp)
-                            .padding(19.dp)
-                    ) {
-                        LineChartWithLabels(
-                            dataPoints = alternativeDataPoints,
-                            xLabels = listOf("0", "0.2", "0.4", "0.6", "0.8", "1"),
-                            yLabels = yLabels,
-                            maxX = maxX.toFloat(),
-                            modifier = Modifier
+
+                    /*
+                    for (row in rememberCriteriaDataMatrix) {
+                        setMatrixOfLTForEvaluatingTheImportanceOfCriteria(
+                            ltCell=row,
+                            changeFullName = {row.fullName=it},
+                            changeShortName = {row.onNewShortName},
+                            changeFirstLimit = {row.onNewFirstLimit},
+                            changeSecondLimit = {row.onNewSecondLimit},
+                            changeThirdLimit = {row.onNewThirdLimit}
                         )
+                    }*/
+
+                }
+            }
+            Column(modifier = Modifier.width(700.dp)) {
+
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("Лінгвістичні терми для оцінки альтернатив", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Row {
+                        HeaderCell("Повна назва")
+                        HeaderCell("Коротка назва")
+                        HeaderCell("Перша точка")
+                        HeaderCell("Друга точка")
+                        HeaderCell("Третя точка")
+                    }
+
+                    when (rememberAlternativeEvaluation) {
+                        3 -> {
+                            updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
+                        }
+
+                        4 -> {
+                            updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
+                        }
+
+                        5 -> {
+                            updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
+                        }
+
+                        6 -> {
+                            updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
+                        }
+
+                        7 -> {
+                            updateDataAlternativeMatrix(GLOBAl_ALTERNATIVE_LT)
+                        }
+                    }
+
+                    var preparationForDataPoint by remember { mutableStateOf(GLOBAl_ALTERNATIVE_LT) }
+                    alternativeDataPoints.clear()
+                    var maxX by remember { mutableStateOf(0) }
+                    var xLabels = remember { listOf("0") }
+                    val yLabels = remember { listOf("1 ", "0.2 ", "0.4 ", "0.6 ", "0.8 ", "0 ") }
+
+
+
+                    preparationForDataPoint.forEach {
+                        if (maxX < it.thirdLimit.toFloat()) {
+                            maxX = it.thirdLimit.toInt()
+                        }
+                        alternativeDataPoints.add(
+                            listOf(
+                                it.firstLimit.toFloat(),
+                                it.secondLimit.toFloat(),
+                                it.thirdLimit.toFloat()
+                            )
+                        )
+                    }
+                    xLabels = newXLabels(maxX)
+
+                    //Charts
+                    Row {
+                        Column(
+                            modifier = Modifier
+                                .width(400.dp)
+                                .padding(19.dp)
+                        ) {
+                            LineChartWithLabels(
+                                dataPoints = alternativeDataPoints,
+                                xLabels = xLabels,
+                                yLabels = yLabels,
+                                maxX = maxX.toFloat(),
+                                modifier = Modifier
+                            )
+                            BasicButton(
+                                "Оновити графіки"
+                            ) {
+                                preparationForDataPoint = GLOBAl_ALTERNATIVE_LT
+                                alternativeDataPoints.clear()
+                                maxX = 0
+                                preparationForDataPoint.forEach {
+                                    if (maxX < it.thirdLimit.toFloat()) {
+                                        maxX = it.thirdLimit.toInt()
+                                    }
+                                    alternativeDataPoints.add(
+                                        listOf(
+                                            it.firstLimit.toFloat(),
+                                            it.secondLimit.toFloat(),
+                                            it.thirdLimit.toFloat()
+                                        )
+                                    )
+                                }
+                                xLabels = newXLabels(maxX)
+                            }
+                        }
+                        Column(
+                            modifier = Modifier
+                                .width(400.dp)
+                                .padding(19.dp)
+                        ) {
+                            LineChartWithLabels(
+                                dataPoints = alternativeDataPoints,
+                                xLabels = listOf("0", "0.2", "0.4", "0.6", "0.8", "1"),
+                                yLabels = yLabels,
+                                maxX = maxX.toFloat(),
+                                modifier = Modifier
+                            )
+                        }
                     }
                 }
             }
+
         }
-        Column {
-            BasicButton(
-                "DATASET"
-            ) {
-                GLOBAl_CRITERIA_LT = setFor6LinguisticTerm
-                GLOBAl_ALTERNATIVE_LT = setFor6AlternativeTerm
-
-                GLOBAL_COUNT_EV_CRITERIA = 6
-                GLOBAL_COUNT_EV_ALTERNATIVE = 6
-
-                GLOBAL_COUNT_CRITERIA = 4
-                GLOBAL_COUNT_ALTERNATIVE = 5
-                GLOBAL_COUNT_EXPERT = 3
-
-                GLOBAL_MATRIX_OF_CRITERIA = mutableListOf(
-                    Criteria(1,"Cri1",BenefitsOrNot.NO),
-                    Criteria(2,"Cri2",BenefitsOrNot.YES),
-                    Criteria(3,"Cri3",BenefitsOrNot.YES),
-                    Criteria(4,"Cri4",BenefitsOrNot.NO),
-                )
-                GLOBAL_MATRIX_OF_ALTERNATIVES = setFor5Alternatives
-                GLOBAL_MATRIX_OF_EXPERTS = setFor3Experts
-                GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
-                GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = addNewCriteriaOrExpert(GLOBAL_COUNT_CRITERIA,GLOBAL_COUNT_EXPERT)
-                GLOBAL_CRITERIA_FUZZY_NUMBERS = getEmptyCriteriaFuzzyNumbers()
-                GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = mutableListOf(
-                    CriteriaWithExpertEval(
-                        "Cri1",
-                        mutableMapOf(
-                            1 to "Low",
-                            2 to "Medium high",
-                            3 to "Medium low",
-                        )
-                    ),
-                    CriteriaWithExpertEval(
-                        "Cri2",
-                        mutableMapOf(
-                            1 to "Low",
-                            2 to "Medium",
-                            3 to "Medium low",
-                        )
-                    ),
-                    CriteriaWithExpertEval(
-                        "Cri3",
-                        mutableMapOf(
-                            1 to "Medium low",
-                            2 to "High",
-                            3 to "Medium",
-                        )
-                    ),
-                    CriteriaWithExpertEval(
-                        "Cri4",
-                        mutableMapOf(
-                            1 to "High",
-                            2 to "Low",
-                            3 to "High",
-                        )
-                    ),
-                )
-                updateAggregatedCriteriaWeightMatrix()
-                GLOBAL_EXPERTS_EVALUATION_LIST = setEmptyListExpertsEvaluation()
-                GLOBAL_EXPERTS_EVALUATION_LIST = mutableListOf(
-                    ExpertAlternativeEvaluation(
-                        1,
-                        arrayOf(
-                            mutableMapOf(
-                                1 to "Medium low",
-                                2 to "Low",
-                                3 to "Medium high",
-                                4 to "Low"
-                            ),
-                            mutableMapOf(
-                                1 to "Low",
-                                2 to "High",
-                                3 to "Medium low",
-                                4 to "Medium high"
-                            ),
-                            mutableMapOf(
-                                1 to "Medium high",
-                                2 to "Very low",
-                                3 to "Very low",
-                                4 to "Medium low"
-                            ),
-                            mutableMapOf(
-                                1 to "Medium low",
-                                2 to "Medium",
-                                3 to "Very low",
-                                4 to "High"
-                            ),
-                            mutableMapOf(
-                                1 to "High",
-                                2 to "Medium",
-                                3 to "Medium",
-                                4 to "Medium high"
-                            ),
-                        )
-                    ),
-                    ExpertAlternativeEvaluation(
-                        2,
-                        arrayOf(
-                            mutableMapOf(
-                                1 to "High",
-                                2 to "Medium high",
-                                3 to "Medium high",
-                                4 to "Low"
-                            ),
-                            mutableMapOf(
-                                1 to "Very low",
-                                2 to "Very low",
-                                3 to "Very low",
-                                4 to "Very low"
-                            ),
-                            mutableMapOf(
-                                1 to "Very low",
-                                2 to "High",
-                                3 to "High",
-                                4 to "Very low"
-                            ),
-                            mutableMapOf(
-                                1 to "Very low",
-                                2 to "High",
-                                3 to "Medium",
-                                4 to "Medium high"
-                            ),
-                            mutableMapOf(
-                                1 to "High",
-                                2 to "High",
-                                3 to "Medium high",
-                                4 to "High"
-                            ),
-                        )
-                    ),
-                    ExpertAlternativeEvaluation(
-                        3,
-                        arrayOf(
-                            mutableMapOf(
-                                1 to "High",
-                                2 to "Medium high",
-                                3 to "Very low",
-                                4 to "Medium low"
-                            ),
-                            mutableMapOf(
-                                1 to "Medium low",
-                                2 to "High",
-                                3 to "Very low",
-                                4 to "Very low"
-                            ),
-                            mutableMapOf(
-                                1 to "Medium low",
-                                2 to "Medium low",
-                                3 to "High",
-                                4 to "Medium"
-                            ),
-                            mutableMapOf(
-                                1 to "Medium low",
-                                2 to "High",
-                                3 to "Medium low",
-                                4 to "Medium low"
-                            ),
-                            mutableMapOf(
-                                1 to "High",
-                                2 to "High",
-                                3 to "High",
-                                4 to "Very low"
-                            ),
-                        )
-                    ),
-                )
-                GLOBAL_AGGREGATE_SCORE =getEmptyAggregationStore()
-                normalizeAlternativeLT()
-                getAggregateStore()
-                updateAggAlternativeWeightMatrix()
-                calculatePerfectValue()
-                normalizeFuzzyDifference()
-                calculateS()
-                calculateR()
-                calculateQ()
-                calculateDefuzzification()
-            }
+        Row(horizontalArrangement = Arrangement.Center) {
 
             //Counters LT
             CountLT(
@@ -593,6 +424,25 @@ fun PresentScreenView(
                     navController.navigate(Screen.ExpertsName.name)
                 }
             )
+
+            var rememberV by remember { mutableStateOf(GLOBAL_V) }
+            VCountView(
+                rememberV,
+                onAddCounterExpertValue = {
+                    if (rememberV < 1f) {
+                        rememberV += 0.1f
+                        GLOBAL_V = rememberV
+
+                    }
+                },
+                onRemoveCounterExpertValue = {
+                    if (rememberV > 0) {
+                        rememberV -= 0.1f
+                        GLOBAL_V = rememberV
+                    }
+                }
+            )
+
         }
     }
 

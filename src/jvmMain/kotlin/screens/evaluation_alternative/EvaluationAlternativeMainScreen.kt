@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,29 +32,30 @@ fun EvaluationAlternativeScreen(
 ) {
     normalizeAlternativeLT()
     Box(
-        modifier = Modifier.fillMaxSize().padding(start = 100.dp)
+        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
     ) {
         Row {
-            Column {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            ) {
                 Surface(
-                    shape = RoundedCornerShape(size = 5.dp),
-                    border = BorderStroke(1.dp, Color.Gray),
                     modifier = Modifier
                         .padding(15.dp)
-                        .width(1350.dp)
-                        .height(800.dp)
-                        .fillMaxHeight(0.5f),
+                        .fillMaxWidth()
+                    ,
                     color = Color.Transparent,
                 ) {
                     Column(
-                        modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState()),
-                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
-                    ){
-                        var indexExperts = 0
+                        modifier = Modifier.padding(10.dp)
+                    ) {
 
+                        var indexExperts = 0
                         GLOBAL_EXPERTS_EVALUATION_LIST.forEach {ev->
+                            Text("Експерт: ${GLOBAL_MATRIX_OF_EXPERTS[indexExperts].name}")
+                            Spacer(modifier = Modifier.height(10.dp))
                             Row {
-                                HeaderCell(GLOBAL_MATRIX_OF_EXPERTS[indexExperts].name)
+                                HeaderCell("")
                                 for (i in GLOBAL_MATRIX_OF_CRITERIA) {
                                     HeaderCell(i.name)
                                 }
@@ -81,17 +83,8 @@ fun EvaluationAlternativeScreen(
                             }
 
                             indexExperts++
-                            Spacer(modifier = Modifier.height(50.dp))
                         }
 
-                        println("@@@@@@")
-                        GLOBAL_EXPERTS_EVALUATION_LIST.forEach {
-                            println("; ; $it")
-                            it.table.forEach {el->
-
-                            }
-                        }
-                        println("2222222222")
 
                     }
 
@@ -99,59 +92,31 @@ fun EvaluationAlternativeScreen(
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row {
-                    BasicButton("GO TO MAIN PAGE") {
-                        //navController.navigate(Screen.FuzzyTriangularNumbers.name)
-                    }
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .width(400.dp)
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(size = 5.dp),
-                    border = BorderStroke(1.dp, Color.Gray),
-                    modifier = Modifier
-                        .padding(15.dp)
-                        .width(1350.dp)
-                        .height(800.dp)
-                        .fillMaxHeight(0.5f),
-                    color = Color.Transparent,
-                ){
-                    Column {
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Aggregate score") {
-                            getAggregateStore()
-                            navController.navigate(Screen.AggregateScoreScreen.name)
-                            //navController.navigate(Screen.FuzzyTriangularNumbers.name)
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Estimates in the form of fuzzy triangular numbers") {
-                            getAggregateStore()
-                            navController.navigate(Screen.EstimatesInTheFormOfFuzzyTriangularNumbersScreen.name)
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Estimates in the form of fuzzy numbers") {
-                            navController.navigate(Screen.EstimatesInTheFormOfFuzzyNumberScreen.name)
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("BenefitsOrMaximization") {
-                            navController.navigate(Screen.BenefitsOrMaximizationScreen.name)
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Normalized matrix") {
-                            navController.navigate(Screen.NormalizeFuzzyDifferenceScreen.name)
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BasicButton("Normalized weighted matrix") {
 
-                            navController.navigate(Screen.SRQScreen.name)
-                        }
+                    BasicButton("У трикутній формі") {
+                        getAggregateStore()
+                        navController.navigate(Screen.EstimatesInTheFormOfFuzzyTriangularNumbersScreen.name)
+                    }
+                    BasicButton("Агреговані оцінки альтернатив") {
+                        navController.navigate(Screen.EstimatesInTheFormOfFuzzyNumberScreen.name)
+                    }
+                    BasicButton("Ідеальні та найгірші значення критеріїв") {
+                        navController.navigate(Screen.BenefitsOrMaximizationScreen.name)
                     }
 
                 }
+                Row{
 
+
+                    BasicButton("Нормована нечітка різниця") {
+                        navController.navigate(Screen.NormalizeFuzzyDifferenceScreen.name)
+                    }
+
+                    BasicButton("Звичайні SRQ та дефазифіковані") {
+
+                        navController.navigate(Screen.SRQScreen.name)
+                    }
+                }
             }
 
         }

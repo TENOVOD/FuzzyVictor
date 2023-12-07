@@ -31,13 +31,13 @@ fun BasicButton(
         border = BorderStroke(1.dp,Color.Black),
         enabled= enabled,
         colors =
-            ButtonDefaults.buttonColors(
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-            )
-    ) {
-        Text(text = text,fontSize = 16.sp,
-
+        ButtonDefaults.buttonColors(
+            backgroundColor = Color.Blue,
+            contentColor = Color.White,
         )
+    ) {
+        Text(text = text,fontSize = 18.sp,
+
+            )
     }
 }

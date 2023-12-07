@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.*
 import navcontroller.NavController
+import screens.elements.BasicButton
 import screens.elements.HeaderCell
 import screens.elements.TableCell
 
@@ -27,47 +28,48 @@ fun ExpertsName(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = 100.dp)
+            modifier = Modifier.fillMaxSize()
         ){
-            Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
-                modifier = Modifier
-                    .padding(15.dp)
-                    .width(250.dp)
-                    .fillMaxHeight(0.5f)
-                ,
-                color = Color.Transparent,
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally){
-                    Row {
-                        HeaderCell("Criteria name")
-                        HeaderCell("Optimal value")
-                    }
-                    GLOBAL_MATRIX_OF_EXPERTS.forEach { el->
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Surface(
+                    modifier = Modifier
+                        .padding(15.dp)
+                        .width(250.dp)
+                    ,
+                    color = Color.Transparent,
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally){
+                        Row {
+                            HeaderCell("Ім'я експерта")
+                        }
+                        GLOBAL_MATRIX_OF_EXPERTS.forEach { el->
 
-                        Row(modifier = Modifier
-                            .width(500.dp)
-                        ){
-                            var alternativeName by remember { mutableStateOf(el.name) }
-                            TableCell(alternativeName){
-                                alternativeName=it
-                                changeAllGlobalExpertsNameById(el.id,alternativeName)
+                            Row(modifier = Modifier
+                                .width(500.dp)
+                            ){
+                                var alternativeName by remember { mutableStateOf(el.name) }
+                                TableCell(alternativeName){
+                                    alternativeName=it
+                                    changeAllGlobalExpertsNameById(el.id,alternativeName)
+                                }
                             }
                         }
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = {
-                            println(GLOBAL_MATRIX_OF_EXPERTS)
-                            navController.navigate(Screen.HomeScreen.name)
-                        }) {
-                        Text("Go to main page")
+
                     }
 
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
+                BasicButton(
+                    "Повернутись до попередніх налаштувань"
+                ){
+                    println(GLOBAL_MATRIX_OF_EXPERTS)
+                    navController.navigate(Screen.HomeScreen.name)
+                }
             }
+
         }
     }
 }

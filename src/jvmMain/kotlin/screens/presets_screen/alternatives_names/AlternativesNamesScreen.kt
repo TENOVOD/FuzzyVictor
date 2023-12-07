@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.*
 import navcontroller.NavController
+import screens.elements.BasicButton
 import screens.elements.DropdownDemo
 import screens.elements.HeaderCell
 import screens.elements.TableCell
@@ -29,46 +30,48 @@ fun AlternativesName(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            modifier = Modifier.padding(start = 100.dp)
+            modifier = Modifier.fillMaxSize()
         ){
-            Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
-                modifier = Modifier
-                    .padding(15.dp)
-                    .width(250.dp)
-                    .fillMaxHeight(0.5f)
-                ,
-                color = Color.Transparent,
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally){
-                    Row {
-                        HeaderCell("Alternatives name")
-                    }
-                    GLOBAL_MATRIX_OF_ALTERNATIVES.forEach { el->
+                Surface(
+                    modifier = Modifier
+                        .padding(15.dp)
+                        .width(250.dp)
 
-                        Row(modifier = Modifier
-                            .width(500.dp)
-                        ){
-                            var alternativeName by remember { mutableStateOf(el.name) }
-                            TableCell(alternativeName){
-                                alternativeName=it
-                                changeAllGlobalAlternativeNameById(el.id,alternativeName)
+                    ,
+                    color = Color.Transparent,
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally){
+                        Row {
+                            HeaderCell("Назва альтернативи")
+                        }
+                        GLOBAL_MATRIX_OF_ALTERNATIVES.forEach { el->
+
+                            Row(modifier = Modifier
+                                .width(500.dp)
+                            ){
+                                var alternativeName by remember { mutableStateOf(el.name) }
+                                TableCell(alternativeName){
+                                    alternativeName=it
+                                    changeAllGlobalAlternativeNameById(el.id,alternativeName)
+                                }
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = {
-                            println(GLOBAL_MATRIX_OF_ALTERNATIVES)
-                            navController.navigate(Screen.HomeScreen.name)
-                        }) {
-                        Text("Go to main page")
-                    }
-
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
+                BasicButton(
+                    "Повернутись до попередніх налаштувань"
+                ){
+                    println(GLOBAL_MATRIX_OF_ALTERNATIVES)
+                    navController.navigate(Screen.HomeScreen.name)
+                }
             }
+
+
         }
     }
 }

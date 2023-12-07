@@ -36,7 +36,7 @@ val setFor7LinguisticTerm = mutableListOf<LinguisticTermCell>(
     LinguisticTermCell("Medium low","ML","10","30","50"),
     LinguisticTermCell("Medium","M","30","50","70"),
     LinguisticTermCell("Medium high","MH","50","70","90"),
-    LinguisticTermCell("High","H","70","70","100"),
+    LinguisticTermCell("High","H","70","90","100"),
     LinguisticTermCell("Very high","VH","90","100","100"),
 )
 
@@ -67,11 +67,11 @@ val setFor6AlternativeTerm = mutableListOf<LinguisticTermCell>(
     LinguisticTermCell("High","H","80","90","100"),
 )
 val setFor7AlternativeTerm = mutableListOf<LinguisticTermCell>(
-    LinguisticTermCell("Very poor","VP","0","0","10"),
-    LinguisticTermCell("Poor","P","0","10","30"),
-    LinguisticTermCell("Medium poor","MP","10","30","50"),
-    LinguisticTermCell("Fair","F","30","50","70"),
-    LinguisticTermCell("Medium good","MG","50","70","90"),
-    LinguisticTermCell("Good","G","70","70","100"),
-    LinguisticTermCell("Very good","VG","90","100","100"),
+    LinguisticTermCell("Very low","VP","0","0","10"),
+    LinguisticTermCell("Low","P","0","10","30"),
+    LinguisticTermCell("Medium low","MP","10","30","50"),
+    LinguisticTermCell("Medium","F","30","50","70"),
+    LinguisticTermCell("Medium high","MG","50","70","90"),
+    LinguisticTermCell("High","G","70","90","100"),
+    LinguisticTermCell("Very high","VG","90","100","100"),
 )

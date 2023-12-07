@@ -20,6 +20,7 @@ import models.Criteria
 import models.BenefitsOrNot
 import models.addNewCriteriaOrExpert
 import navcontroller.NavController
+import screens.elements.BasicButton
 import screens.elements.DropdownDemo
 import screens.elements.HeaderCell
 import screens.elements.TableCell
@@ -35,49 +36,54 @@ fun SettingsOfAlternativesScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = 100.dp)
+            modifier = Modifier.fillMaxSize()
         ){
-            Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
-                modifier = Modifier
-                    .padding(15.dp)
-                    .width(500.dp)
-                    .fillMaxHeight(0.5f)
-                ,
-                color = Color.Transparent,
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally){
-                    Row {
-                        HeaderCell("Criteria name")
-                        HeaderCell("Optimal value")
-                    }
-                    GLOBAL_MATRIX_OF_CRITERIA.forEach { el->
+                Surface(
+                    border = BorderStroke(2.dp, Color.Black),
+                    modifier = Modifier
+                        .padding(15.dp)
+                        .width(500.dp)
 
-                        Row(modifier = Modifier
-                            .width(500.dp)
-                        ){
-                            var criterionName by remember { mutableStateOf(el.name)}
-                            TableCell(criterionName){
-                                criterionName=it
-                                changeAllGlobalCriteriaNameById(el.id,criterionName)
-                            }
-                            DropdownDemo(el)
+                    ,
+                    color = Color.Transparent,
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally){
+                        Row {
+                            HeaderCell("Назва критерію")
+                            HeaderCell("Benefit?")
                         }
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = {
-                            println(GLOBAL_MATRIX_OF_CRITERIA)
-                            GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = addNewCriteriaOrExpert(GLOBAL_COUNT_CRITERIA,GLOBAL_COUNT_EXPERT)
-                            navController.navigate(Screen.HomeScreen.name)
-                        }) {
-                        Text("SAVE AND GO TO MAIN PAGE")
+                        GLOBAL_MATRIX_OF_CRITERIA.forEach { el->
+
+                            Row(modifier = Modifier
+                                .width(500.dp)
+                            ){
+                                var criterionName by remember { mutableStateOf(el.name)}
+                                TableCell(criterionName){
+                                    criterionName=it
+                                    changeAllGlobalCriteriaNameById(el.id,criterionName)
+                                }
+                                DropdownDemo(el)
+                            }
+                        }
+
+
                     }
 
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
+                BasicButton(
+                    "Повернутись до попередніх налаштувань"
+                ){
+                    println(GLOBAL_MATRIX_OF_CRITERIA)
+                    GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = addNewCriteriaOrExpert(GLOBAL_COUNT_CRITERIA,GLOBAL_COUNT_EXPERT)
+                    navController.navigate(Screen.HomeScreen.name)
+                }
             }
+
         }
     }
 }

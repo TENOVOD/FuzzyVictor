@@ -24,7 +24,7 @@ fun LineChartWithLabels(
     yLabels: List<String>,
     maxX: Float = 100f,
     modifier: Modifier = Modifier,
-    lineColor: Color = Color.Black,
+    lineColor: Color = Color.Blue,
     lineWidth: Float = 2f
 ) {
 
@@ -95,7 +95,7 @@ fun LineChartWithLabels(
                         for (i in yLabels.indices) {
                             val labelY = size.height * (1f - i.toFloat() / (yLabels.size - 1))
                             drawLine(
-                                color = Color.White,
+                                color = Color.Black,
                                 start = Offset(0f, labelY),
                                 end = Offset(size.width, labelY),
                                 strokeWidth = 1f

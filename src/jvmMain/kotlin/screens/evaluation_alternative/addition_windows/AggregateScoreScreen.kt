@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -24,15 +25,14 @@ fun AggregateScoreScreen(
     Box(
         modifier = Modifier.fillMaxSize().padding(start = 100.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
                 modifier = Modifier
                     .padding(15.dp)
-                    .width(1750.dp)
-                    .height(800.dp)
-                    .fillMaxHeight(0.5f),
+                    .fillMaxWidth(),
                 color = Color.Transparent,
             ) {
                 Column (
@@ -63,7 +63,7 @@ fun AggregateScoreScreen(
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                BasicButton("GO TO PREVIOUS PAGE") {
+                BasicButton("До оцінки альтернатив") {
                     navController.navigate(Screen.EvaluationAlternative.name)
                 }
 

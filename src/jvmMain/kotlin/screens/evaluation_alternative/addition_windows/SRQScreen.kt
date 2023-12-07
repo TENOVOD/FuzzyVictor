@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -35,18 +36,16 @@ fun SRQScreen(
     navController: NavController
 ) {
     Box(
-        modifier = Modifier.fillMaxSize().padding(start = 100.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
                 modifier = Modifier
                     .padding(15.dp)
-                    .width(1750.dp)
-                    .height(800.dp)
-                    .fillMaxHeight(0.5f)
-                    .verticalScroll(rememberScrollState()),
+                    .fillMaxWidth(),
                 color = Color.Transparent,
             ) {
                 Column(
@@ -94,62 +93,42 @@ fun SRQScreen(
                             TableCellWithText(result)
                         }
                     }
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(60.dp))
                     Row{
-                        HeaderCell("Defuzzified values")
+                        HeaderCell("Дефазифіковані значеня")
                         GLOBAL_MATRIX_OF_ALTERNATIVES.forEach {
                             HeaderCell(it.name)
                         }
                     }
                     Row {
-                        LeftSideMainCell("Defuzzified sum(S)")
+                        LeftSideMainCell("S")
                         for (i in 1..GLOBAL_COUNT_ALTERNATIVE){
                             TableCellWithText(GLOBAL_DEFUZZIFICATION_MATRIX_OF_S[i-1].second.toString())
                         }
                     }
                     Row {
-                        LeftSideMainCell("Defuzzified max(R)")
+                        LeftSideMainCell("R")
                         for (i in 1..GLOBAL_COUNT_ALTERNATIVE){
                             TableCellWithText(GLOBAL_DEFUZZIFICATION_MATRIX_OF_R[i-1].second.toString())
                         }
                     }
                     Row {
-                        LeftSideMainCell("Defuzzified score(Q)")
+                        LeftSideMainCell("Q")
                         for (i in 1..GLOBAL_COUNT_ALTERNATIVE){
                             TableCellWithText(GLOBAL_DEFUZZIFICATION_MATRIX_OF_Q[i-1].second.toString())
                         }
                     }
                     Spacer(modifier = Modifier.height(30.dp))
-                    Row {
-                        Text("Ranked alternatives")
-                    }
-                    Row {
-                        LeftSideMainCell("Ranked sum(S)")
-                        GLOBAL_DEFUZZIFICATION_MATRIX_OF_S_RANKING.forEach {
-                            TableCellWithText("${it.first} (${it.second})")
-                        }
-                    }
-                    Row {
-                        LeftSideMainCell("Ranked max(R)")
-                        GLOBAL_DEFUZZIFICATION_MATRIX_OF_R_RANKING.forEach {
-                            TableCellWithText("${it.first} (${it.second}) ->")
-                        }
-                    }
-                    Row {
-                        LeftSideMainCell("Ranked score(Q)")
-                        GLOBAL_DEFUZZIFICATION_MATRIX_OF_Q_RANKING.forEach {
-                            TableCellWithText("${it.first} (${it.second}) ->")
-                        }
-                    }
+
                 }
             }
 
-
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                BasicButton("GO TO PREVIOUS PAGE") {
+                BasicButton("До оцінки альтернатив") {
                     navController.navigate(Screen.EvaluationAlternative.name)
                 }
+
             }
         }
 

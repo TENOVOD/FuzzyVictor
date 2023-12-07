@@ -3,6 +3,7 @@ package screens.evaluation_criteria
 import GLOBAL_COUNT_CRITERIA
 import GLOBAL_COUNT_EXPERT
 import GLOBAL_MATRIX_OF_CRITERIA_EVALUATION
+import GLOBAL_MATRIX_OF_EXPERTS
 import GLOBAL_NORMALIZE_OF_ALTERNATIVE_LT
 import GLOBAL_NORMALIZE_OF_CRITERIA_LT
 import GLOBAl_ALTERNATIVE_LT
@@ -44,17 +45,17 @@ fun EvaluationCriteria(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize().padding(start = 100.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Surface(
-                shape = RoundedCornerShape(size = 5.dp),
-                border = BorderStroke(1.dp, Color.Gray),
                 modifier = Modifier
                     .padding(15.dp)
-                    .width(1750.dp)
-                    .height(800.dp)
-                    .fillMaxHeight(0.5f),
+                    .fillMaxWidth()
+                ,
                 color = Color.Transparent,
             ) {
                 Column (
@@ -63,7 +64,7 @@ fun EvaluationCriteria(
                     Row(){
                         HeaderCell("")
                         for(i in 1..GLOBAL_COUNT_EXPERT){
-                            HeaderCell("Expert #$i")
+                            HeaderCell(GLOBAL_MATRIX_OF_EXPERTS[i-1].name)
                         }
                     }
                     val list = mutableListOf<String>()
@@ -83,10 +84,10 @@ fun EvaluationCriteria(
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                BasicButton("Criterion evaluation in the form of fuzzy triangular numbers") {
+                BasicButton("Оцінки критеріїв у вигляді трикутних чисел") {
                     navController.navigate(Screen.FuzzyTriangularNumbers.name)
                 }
-                BasicButton("Estimates in the form of fuzzy numbers based on transformed LT") {
+                BasicButton("Агреговані ваги критеріїв") {
                     calculateCriteriaFuzzyNumbers()
                     navController.navigate(Screen.EstimatesFormOfFuzzyNumbersTransformedLTScreen.name)
                 }

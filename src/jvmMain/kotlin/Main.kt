@@ -1,8 +1,6 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -10,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import data.*
@@ -18,11 +17,14 @@ import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
 import navcontroller.rememberNavController
+import screens.ResultScreen
+import screens.elements.HeadersButton
 import screens.evaluation_alternative.EvaluationAlternativeScreen
 import screens.evaluation_alternative.addition_windows.*
 import screens.evaluation_criteria.EvaluationCriteria
 import screens.evaluation_criteria.criterion_evaluation_in_the_form_of_fuzzy_triangular_numbers.CriteriaEvalFuzzyTriangularNumbersScreen
 import screens.evaluation_criteria.estimates_in_the_form_of_fuzzy_numbers_based_on_transformed_lexical_terms.EstimatesFormOfFuzzyNumbersTransformedLTScreen
+import screens.evaluation_criteria.normalizeAlternativeLT
 import screens.presets_screen.PresentScreenView
 import screens.presets_screen.alternatives_names.AlternativesName
 import screens.presets_screen.expert_count.ExpertsName
@@ -103,33 +105,283 @@ fun App() {
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                NavigationRail(
-                    modifier = Modifier.align(Alignment.CenterStart).fillMaxHeight()
-                ) {
-                    screens.forEach {
-                        NavigationRailItem(
-                            selected = currentScreen == it.name,
-                            icon = {
-                                Icon(
-                                    imageVector = it.icon,
-                                    contentDescription = it.label
-                                )
-                            },
-                            label = {
-                                Text(it.label)
-                            },
-                            alwaysShowLabel = false,
-                            onClick = {
-                                navController.navigate(it.name)
-                            }
-                        )
-                    }
-                }
+                Column(modifier = Modifier.width(1900.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                    Row() {
+                        HeadersButton("Попередні налаштування"){
+                            navController.navigate(Screen.HomeScreen.name)
+                        }
+                        HeadersButton("Оцінка критеріїв"){
+                            navController.navigate(Screen.EvaluationCriteria.name)
+                        }
+                        HeadersButton("Оцінка альтернатив"){
+                            navController.navigate(Screen.EvaluationAlternative.name)
+                        }
+                        HeadersButton("Результати "){
+                            navController.navigate(Screen.ResultScreen.name)
+                        }
+                        HeadersButton("DATASET"){
+                            GLOBAl_CRITERIA_LT = setFor7LinguisticTerm
+                            GLOBAl_ALTERNATIVE_LT = setFor7AlternativeTerm
 
-                Box(
-                    modifier = Modifier.fillMaxHeight()
-                ) {
-                    CustomNavigationHost(navController = navController)
+                            GLOBAL_COUNT_EV_CRITERIA = 7
+                            GLOBAL_COUNT_EV_ALTERNATIVE = 7
+
+                            GLOBAL_COUNT_CRITERIA = 5
+                            GLOBAL_COUNT_ALTERNATIVE = 5
+                            GLOBAL_COUNT_EXPERT = 4
+
+                            GLOBAL_MATRIX_OF_CRITERIA = mutableListOf(
+                                Criteria(1, "Частота пам’яті", BenefitsOrNot.YES),
+                                Criteria(2, "Частота ядра", BenefitsOrNot.NO),
+                                Criteria(3, "Охолодження", BenefitsOrNot.YES),
+                                Criteria(4, "Обсяг пам’яті", BenefitsOrNot.YES),
+                                Criteria(5, "Шина", BenefitsOrNot.NO),
+                            )
+                            GLOBAL_MATRIX_OF_ALTERNATIVES = mutableListOf(
+                                Alternative(1, "EVGA FTW3"),
+                                Alternative(2, "Sap. RX7900XT"),
+                                Alternative(3, "GV-N4070AERO"),
+                                Alternative(4, "NED407TU19K9"),
+                                Alternative(5, "GV-N407TAERO"),
+                            )
+                            GLOBAL_MATRIX_OF_EXPERTS = mutableListOf(
+                                Expert(1, "Сашко"),
+                                Expert(2, "Кирил"),
+                                Expert(3, "Володя"),
+                                Expert(4, "Петро"),
+                            )
+                            GLOBAL_AGGREGATE_SCORE = getEmptyAggregationStore()
+                            GLOBAL_MATRIX_OF_CRITERIA_EVALUATION =
+                                addNewCriteriaOrExpert(GLOBAL_COUNT_CRITERIA, GLOBAL_COUNT_EXPERT)
+                            GLOBAL_CRITERIA_FUZZY_NUMBERS = getEmptyCriteriaFuzzyNumbers()
+                            GLOBAL_MATRIX_OF_CRITERIA_EVALUATION = mutableListOf(
+                                CriteriaWithExpertEval(
+                                    "Частота пам’яті",
+                                    mutableMapOf(
+                                        1 to "Medium high",
+                                        2 to "Medium",
+                                        3 to "Medium high",
+                                        4 to "Medium",
+                                    )
+                                ),
+                                CriteriaWithExpertEval(
+                                    "Частота ядра",
+                                    mutableMapOf(
+                                        1 to "Medium high",
+                                        2 to "Medium",
+                                        3 to "Very high",
+                                        4 to "Medium high",
+                                    )
+                                ),
+                                CriteriaWithExpertEval(
+                                    "Охолодження",
+                                    mutableMapOf(
+                                        1 to "High",
+                                        2 to "Very high",
+                                        3 to "Medium",
+                                        4 to "High",
+                                    )
+                                ),
+                                CriteriaWithExpertEval(
+                                    "Обсяг пам’яті",
+                                    mutableMapOf(
+                                        1 to "Medium",
+                                        2 to "High",
+                                        3 to "High",
+                                        4 to "High",
+                                    )
+                                ),
+                                CriteriaWithExpertEval(
+                                    "Шина",
+                                    mutableMapOf(
+                                        1 to "High",
+                                        2 to "Very high",
+                                        3 to "High",
+                                        4 to "Very high",
+                                    )
+                                ),
+                            )
+                            updateAggregatedCriteriaWeightMatrix()
+                            GLOBAL_EXPERTS_EVALUATION_LIST = setEmptyListExpertsEvaluation()
+                            GLOBAL_EXPERTS_EVALUATION_LIST = mutableListOf(
+                                ExpertAlternativeEvaluation(
+                                    1,
+                                    arrayOf(
+                                        mutableMapOf(
+                                            1 to "Medium low",
+                                            2 to "Low",
+                                            3 to "High",
+                                            4 to "Very high",
+                                            5 to "Very high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium",
+                                            2 to "Medium high",
+                                            3 to "Very high",
+                                            4 to "High",
+                                            5 to "Medium high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "High",
+                                            3 to "Medium",
+                                            4 to "Medium low",
+                                            5 to "Medium low"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Very high",
+                                            3 to "Medium",
+                                            4 to "Medium low",
+                                            5 to "Medium low"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "High",
+                                            3 to "Medium",
+                                            4 to "Medium low",
+                                            5 to "Medium low"
+                                        ),
+                                    )
+                                ),
+                                ExpertAlternativeEvaluation(
+                                    2,
+                                    arrayOf(
+                                        mutableMapOf(
+                                            1 to "Medium",
+                                            2 to "Medium low",
+                                            3 to "Medium high",
+                                            4 to "Very high",
+                                            5 to "Very high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium",
+                                            2 to "Medium high",
+                                            3 to "Medium high",
+                                            4 to "Medium high",
+                                            5 to "Medium low"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "High",
+                                            3 to "Medium",
+                                            4 to "Medium",
+                                            5 to "Medium low"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Very high",
+                                            3 to "Medium high",
+                                            4 to "Medium",
+                                            5 to "Low"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Very high",
+                                            3 to "Medium",
+                                            4 to "Medium",
+                                            5 to "Low"
+                                        ),
+                                    )
+                                ),
+                                ExpertAlternativeEvaluation(
+                                    3,
+                                    arrayOf(
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Medium low",
+                                            3 to "Medium high",
+                                            4 to "Very high",
+                                            5 to "Very high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "High",
+                                            2 to "High",
+                                            3 to "Medium",
+                                            4 to "Medium",
+                                            5 to "High"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "High",
+                                            2 to "High",
+                                            3 to "Medium",
+                                            4 to "Medium high",
+                                            5 to "Medium"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "High",
+                                            2 to "Very high",
+                                            3 to "Medium high",
+                                            4 to "Medium",
+                                            5 to "Medium"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "High",
+                                            2 to "High",
+                                            3 to "Medium high",
+                                            4 to "Medium",
+                                            5 to "Medium"
+                                        ),
+                                    )
+                                ),
+                                ExpertAlternativeEvaluation(
+                                    4,
+                                    arrayOf(
+                                        mutableMapOf(
+                                            1 to "Medium",
+                                            2 to "Low",
+                                            3 to "High",
+                                            4 to "High",
+                                            5 to "Very high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Medium high",
+                                            3 to "Medium high",
+                                            4 to "High",
+                                            5 to "Medium high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Medium high",
+                                            3 to "Medium high",
+                                            4 to "Medium",
+                                            5 to "Medium high"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "High",
+                                            2 to "Very high",
+                                            3 to "High",
+                                            4 to "Medium",
+                                            5 to "Medium"
+                                        ),
+                                        mutableMapOf(
+                                            1 to "Medium high",
+                                            2 to "Medium high",
+                                            3 to "Very high",
+                                            4 to "Medium",
+                                            5 to "Medium"
+                                        ),
+                                    )
+                                ),
+                            )
+                            GLOBAL_AGGREGATE_SCORE = getEmptyAggregationStore()
+                            normalizeAlternativeLT()
+                            getAggregateStore()
+                            updateAggAlternativeWeightMatrix()
+                            calculatePerfectValue()
+                            normalizeFuzzyDifference()
+                            calculateS()
+                            calculateR()
+                            calculateQ()
+                            calculateDefuzzification()
+                        }
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxHeight()
+                    ) {
+                        CustomNavigationHost(navController = navController)
+                    }
                 }
             }
         }
@@ -263,6 +515,9 @@ fun CustomNavigationHost(
         }
         composable(Screen.SRQScreen.name){
             SRQScreen(navController)
+        }
+        composable(Screen.ResultScreen.name){
+            ResultScreen(navController)
         }
 
     }.build()

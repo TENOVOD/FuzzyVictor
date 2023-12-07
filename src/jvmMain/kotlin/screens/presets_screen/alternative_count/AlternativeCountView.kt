@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -25,19 +26,18 @@ fun AlternativeCountView(
 ){
     Surface(
         shape = RoundedCornerShape(size = 5.dp),
-        border = BorderStroke(1.dp, Color.Gray),
         modifier = Modifier.padding(15.dp),
         color = Color.Transparent
     ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            Text("Alternatives", fontSize = 20.sp)
+        Column(modifier = Modifier.padding(10.dp),horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Альтернативи", fontSize = 20.sp)
             Spacer(modifier = Modifier.height(5.dp))
-            Counter("Quantity: ", alternativeCount,
+            Counter("Кількість: ", alternativeCount,
                 onAddCounterValue = onAddCounterAlternativeValue,
                 onRemoveCounterValue = onRemoveCounterAlternativeValue
             )
             Spacer(modifier = Modifier.height(5.dp))
-            BasicButton("Settings", action = onAlternativeButtonAction)
+            BasicButton("Змінити назви", action = onAlternativeButtonAction)
         }
     }
 }

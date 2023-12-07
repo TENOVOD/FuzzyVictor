@@ -2,14 +2,13 @@ package screens.elements
 
 import GLOBAL_EXPERTS_EVALUATION_LIST
 import GLOBAL_MATRIX_OF_EXPERTS
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -234,6 +233,32 @@ fun RowScope.DropdownChooseExpert(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun HeadersButton(
+    text: String,
+    modifier: Modifier = Modifier
+        .padding(14.dp)
+        .padding(1.dp),
+    enabled: Boolean = true,
+    action:() -> Unit)
+{
+    Button(
+        onClick = action,
+        modifier = modifier,
+        border = BorderStroke(2.dp,Color.Black),
+        enabled= enabled,
+        colors =
+        ButtonDefaults.buttonColors(
+            backgroundColor = Color.Blue,
+            contentColor = Color.White,
+        )
+    ) {
+        Text(text = text,fontSize = 22.sp,
+
+            )
     }
 }
 
